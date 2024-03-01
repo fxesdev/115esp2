@@ -18,6 +18,7 @@ RED = (255, 0, 0)
 PIXEL_SIZE = 12
 SPRITE_WIDTH = 96
 SPRITE_HEIGHT = 8
+GRID_COLOR = (50, 50, 50)
 
 # Create sprite data with every 8th character set to 1
 sprite_data = [[0] * SPRITE_WIDTH for _ in range(SPRITE_HEIGHT)]
@@ -27,6 +28,7 @@ for row in sprite_data:
 
 # Function to draw the sprite
 def draw_sprite():
+    # Draw pixels
     for y in range(SPRITE_HEIGHT):
         for x in range(SPRITE_WIDTH):
             if y == 3 and 32 <= x <= 47:  # Check if pixel is in the specified range
@@ -34,6 +36,12 @@ def draw_sprite():
             else:
                 color = WHITE if sprite_data[y][x] == 1 else BLACK
             pygame.draw.rect(screen, color, (x * PIXEL_SIZE, y * PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE))
+    # Draw grid lines
+    for x in range(0, WIDTH, PIXEL_SIZE):
+        pygame.draw.line(screen, GRID_COLOR, (x, 0), (x, HEIGHT))
+    for y in range(0, HEIGHT, PIXEL_SIZE):
+        pygame.draw.line(screen, GRID_COLOR, (0, y), (WIDTH, y))
+
 
 # Function to translate sprite data to hexadecimal
 def translate_to_hex(line_wrap=32):
@@ -86,4 +94,3 @@ while running:
 # Quit Pygame
 pygame.quit()
 sys.exit()
-
