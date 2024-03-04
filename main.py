@@ -5,7 +5,7 @@ import sys
 pygame.init()
 
 # Set up display
-WIDTH, HEIGHT = 1260, 400
+WIDTH, HEIGHT = 1860, 400
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("115esp2 drawer")
 
@@ -15,9 +15,9 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 
 # Define constants
-PIXEL_SIZE = 12
+PIXEL_SIZE = 18
 SPRITE_WIDTH = 96
-SPRITE_HEIGHT = 8
+SPRITE_HEIGHT = 9
 GRID_COLOR = (50, 50, 50)
 
 # Create sprite data with every 8th character set to 1
@@ -31,7 +31,9 @@ def draw_sprite():
     # Draw pixels
     for y in range(SPRITE_HEIGHT):
         for x in range(SPRITE_WIDTH):
-            if y == 3 and 32 <= x <= 47:  # Check if pixel is in the specified range
+            if y == 3 and 32 <= x <= 55:  # Check if pixel is in the specified range
+                color = RED if sprite_data[y][x] == 1 else BLACK
+            elif y == 8 and 32 <= x <= 96:  # Check if pixel is in the specified range
                 color = RED if sprite_data[y][x] == 1 else BLACK
             else:
                 color = WHITE if sprite_data[y][x] == 1 else BLACK
@@ -51,7 +53,7 @@ def translate_to_hex(line_wrap=32):
         hex_string = hex(int(binary_string, 2))[2:].zfill(SPRITE_WIDTH // 4)
         hex_data.extend(hex_string[i:i+2] + " " for i in range(0, len(hex_string), 2))
     # Update specific indices with the desired values
-    hex_data[40:42] = ["06 ", "75 ", "31 "]
+    hex_data[40:43] = ["06 ", "75 ", "31 "]
     
     # Add line wrap
     hex_data_wrapped = []
