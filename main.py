@@ -115,7 +115,6 @@ while running:
                 y //= PIXEL_SIZE
                 if 0 <= x < BSPRITE_WIDTH and 0 <= y < BSPRITE_HEIGHT:
                     bsprite_data[y][x] = 1 - bsprite_data[y][x]  # Invert the pixel color
-                    print(sprite_data)
 
     pygame.display.flip()
 
