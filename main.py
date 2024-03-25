@@ -20,7 +20,7 @@ PIXEL_SIZE = 18
 SPRITE_WIDTH = 96
 SPRITE_HEIGHT = 9
 BSPRITE_WIDTH = 32
-BSPRITE_HEIGHT = 16
+BSPRITE_HEIGHT = 17
 GRID_COLOR = (50, 50, 50)
 
 # Create sprite data with every 8th character set to 1
@@ -66,7 +66,7 @@ def translate_to_hex(line_wrap=32):
     i = 0
     j = 0
     for px in bsprite_data:
-        if i <= 7:
+        if i <= 8:
             sprite_data[i][0:32] = px 
             i+=1
         elif i >= 8:
