@@ -5,7 +5,7 @@ import sys
 pygame.init()
 
 # Set up display
-WIDTH, HEIGHT = 1860, 400
+WIDTH, HEIGHT = 1860, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("115esp2 drawer")
 
@@ -15,9 +15,12 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 
 # Define constants
+big_sprite = [[64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96],[64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96],[64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96],[64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96],[64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96],[64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96],[64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96],[64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]]
 PIXEL_SIZE = 18
 SPRITE_WIDTH = 96
 SPRITE_HEIGHT = 9
+BSPRITE_WIDTH = 32
+BSPRITE_HEIGHT = 16
 GRID_COLOR = (50, 50, 50)
 
 # Create sprite data with every 8th character set to 1
@@ -25,18 +28,31 @@ sprite_data = [[0] * SPRITE_WIDTH for _ in range(SPRITE_HEIGHT)]
 for row in sprite_data:
     for i in range(7, SPRITE_WIDTH, 8):
         row[i] = 1
+bsprite_data = [[0] * BSPRITE_WIDTH for _ in range(BSPRITE_HEIGHT)]
+for row in bsprite_data:
+    for i in range(7, BSPRITE_WIDTH, 8):
+        row[i] = 1
 
 # Function to draw the sprite
 def draw_sprite():
     # Draw pixels
-    for y in range(SPRITE_HEIGHT):
-        for x in range(SPRITE_WIDTH):
+    #  for y in range(SPRITE_HEIGHT):
+ #       for x in range(SPRITE_WIDTH):
+  #          if y == 3 and 32 <= x <= 55:  # Check if pixel is in the specified range
+  #              color = RED if sprite_data[y][x] == 1 else BLACK
+  #          elif y == 8 and 32 <= x <= 96:  # Check if pixel is in the specified range
+  #              color = RED if sprite_data[y][x] == 1 else BLACK
+  #          else:
+  #              color = WHITE if sprite_data[y][x] == 1 else BLACK
+ #           pygame.draw.rect(screen, color, (x * PIXEL_SIZE, y * PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE))
+    for y in range(BSPRITE_HEIGHT):
+        for x in range(BSPRITE_WIDTH):
             if y == 3 and 32 <= x <= 55:  # Check if pixel is in the specified range
-                color = RED if sprite_data[y][x] == 1 else BLACK
+                color = RED if bsprite_data[y][x] == 1 else BLACK
             elif y == 8 and 32 <= x <= 96:  # Check if pixel is in the specified range
-                color = RED if sprite_data[y][x] == 1 else BLACK
+                color = RED if bsprite_data[y][x] == 1 else BLACK
             else:
-                color = WHITE if sprite_data[y][x] == 1 else BLACK
+                color = WHITE if bsprite_data[y][x] == 1 else BLACK
             pygame.draw.rect(screen, color, (x * PIXEL_SIZE, y * PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE))
     # Draw grid lines
     for x in range(0, WIDTH, PIXEL_SIZE):
@@ -47,6 +63,15 @@ def draw_sprite():
 
 # Function to translate sprite data to hexadecimal
 def translate_to_hex(line_wrap=32):
+    i = 0
+    j = 0
+    for px in bsprite_data:
+        if i <= 7:
+            sprite_data[i][0:32] = px 
+            i+=1
+        elif i >= 8:
+            sprite_data[i-8][64:96] = px
+            i+=1
     hex_data = []
     for row in sprite_data:
         binary_string = ''.join(str(bit) for bit in row)
@@ -76,7 +101,7 @@ while running:
     hex_data = translate_to_hex()
     for i, row in enumerate(hex_data):
         text = font.render(row, True, WHITE)
-        screen.blit(text, (20, SPRITE_HEIGHT * PIXEL_SIZE + 20 + i * 30))
+        screen.blit(text, (20, BSPRITE_HEIGHT * PIXEL_SIZE + 20 + i * 30))
         if 41 <= i <= 44:
             output.append(row)
 
@@ -88,8 +113,9 @@ while running:
                 x, y = pygame.mouse.get_pos()
                 x //= PIXEL_SIZE
                 y //= PIXEL_SIZE
-                if 0 <= x < SPRITE_WIDTH and 0 <= y < SPRITE_HEIGHT:
-                    sprite_data[y][x] = 1 - sprite_data[y][x]  # Invert the pixel color
+                if 0 <= x < BSPRITE_WIDTH and 0 <= y < BSPRITE_HEIGHT:
+                    bsprite_data[y][x] = 1 - bsprite_data[y][x]  # Invert the pixel color
+                    print(sprite_data)
 
     pygame.display.flip()
 
