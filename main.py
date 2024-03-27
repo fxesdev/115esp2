@@ -5,7 +5,7 @@ import sys
 pygame.init()
 
 # Set up display
-WIDTH, HEIGHT = 1860, 600
+WIDTH, HEIGHT = 860, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("115esp2 drawer")
 
@@ -69,7 +69,7 @@ def translate_to_hex(line_wrap=32):
             sprite_data[i][0:32] = px 
             i+=1
         elif i >= 8:
-            sprite_data[i-8][64:96] = px
+            sprite_data[i-9][64:96] = px
             i+=1
     hex_data = []
     for row in sprite_data:
